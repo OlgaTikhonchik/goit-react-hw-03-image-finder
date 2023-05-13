@@ -1,23 +1,16 @@
 import PropTypes from 'prop-types';
+import { GalleryImg, GalleryItem } from './ImageGalleryItem.styled';
 
 export const ImageGalleryItem = ({ item, onImageClick }) => {
   const { largeImageURL, tags, webformatURL } = item;
   return (
-    <li
-    // onClick={e => {
-    //   e.preventDefault();
-    //   onImageClick({ largeImageURL, tags });
-    // }}
-    >
-      <img
+    <GalleryItem>
+      <GalleryImg
         onClick={() => onImageClick({ img: largeImageURL, alt: tags })}
         src={webformatURL}
         alt={tags}
       />
-      {/* <div>
-        <img src={webformatURL} alt={tags} loading="lazy" />
-      </div> */}
-    </li>
+    </GalleryItem>
   );
 };
 

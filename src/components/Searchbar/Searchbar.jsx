@@ -1,6 +1,14 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { HiMagnifyingGlass } from 'react-icons/hi2';
+import {
+  SearchForm,
+  SearchFormButton,
+  SearchFormInput,
+  SearchbarContainer,
+} from './Searchbar.styled';
 
 export class Searchbar extends Component {
   state = {
@@ -14,8 +22,11 @@ export class Searchbar extends Component {
   handleSubmit = event => {
     event.preventDefault();
     if (this.state.value.trim() === '') {
-      return alert('Please enter key words for search');
-      // return toast.info('Please enter key words for search');
+      // return alert('Please enter key words for search');
+      return toast.info('Please enter key words for search', {
+        position: 'top-center',
+        theme: 'colored',
+      });
     }
 
     this.props.onSubmit(this.state.value);
@@ -26,14 +37,13 @@ export class Searchbar extends Component {
     const { value } = this.state;
 
     return (
-      <header className="searchbar">
-        <form className="form" onSubmit={this.handleSubmit}>
-          <button type="submit" className="button">
-            <span className="button-label">Search</span>
-          </button>
+      <SearchbarContainer>
+        <SearchForm onSubmit={this.handleSubmit}>
+          <SearchFormButton type="submit" className="button">
+            <HiMagnifyingGlass size="24" />
+          </SearchFormButton>
 
-          <input
-            className="input"
+          <SearchFormInput
             type="text"
             autoComplete="off"
             autoFocus
@@ -41,8 +51,8 @@ export class Searchbar extends Component {
             value={value}
             onChange={this.handleChange}
           />
-        </form>
-      </header>
+        </SearchForm>
+      </SearchbarContainer>
     );
   }
 }

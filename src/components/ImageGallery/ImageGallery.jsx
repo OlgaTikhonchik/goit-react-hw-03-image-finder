@@ -6,6 +6,7 @@ import { Button } from 'components/Button';
 import { Modal } from 'components/Modal';
 import { ImageGalleryItem } from 'components/ImageGalleryItem';
 import { ImageErrorView } from 'components/ImageErrorView/ImageErrorView';
+import { GalleryList } from './ImageGallery.styled';
 
 const Status = {
   IDLE: 'idle',
@@ -48,19 +49,6 @@ export class ImageGallery extends Component {
     if (this.state.error) {
       this.setState({ error: null });
     }
-
-    //   getImage(nextValue, this.state.page)
-    //     .then(images => {
-    //       this.setState(prevState => ({
-    //         images:
-    //           this.state.page === 1
-    //             ? images.hits
-    //             : [...prevState.images, ...images.hits],
-    //         status: Status.RESOLVED,
-    //         totalPages: Math.floor(images.totalHits / 12),
-    //       }));
-    //     })
-    //     .catch(error => this.setState({ error, status: Status.REJECTED }));
   }
 
   handleLoadMore = () => {
@@ -79,7 +67,19 @@ export class ImageGallery extends Component {
     const { images, error, status, page, totalPages, isShowModal, modalData } =
       this.state;
     if (status === 'idle') {
-      return <div>Let`s find images together!</div>;
+      return (
+        <div
+          style={{
+            color: 'blue',
+            fontSize: '36px',
+            margin: '0 auto',
+            textAlign: 'center',
+            fontFamily: 'Delicious Handrawn, cursive',
+          }}
+        >
+          Let`s find images together!
+        </div>
+      );
     }
 
     if (status === 'pending') {
@@ -101,7 +101,7 @@ export class ImageGallery extends Component {
     if (status === 'resolved') {
       return (
         <>
-          <ul className="gallery">
+          <GalleryList className="gallery">
             {images.map(image => (
               <ImageGalleryItem
                 key={image.id}
@@ -109,7 +109,7 @@ export class ImageGallery extends Component {
                 onImageClick={this.setModalData}
               />
             ))}
-          </ul>
+          </GalleryList>
           {images.length > 0 && status !== 'pending' && page <= totalPages && (
             <Button onClick={this.handleLoadMore}>Load More</Button>
           )}

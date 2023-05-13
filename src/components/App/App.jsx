@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import { ToastContainer } from 'react-toastify';
 import { Searchbar } from 'components/Searchbar';
 import { ImageGallery } from 'components/ImageGallery';
 
@@ -18,6 +19,7 @@ export class App extends Component {
       <div>
         <Searchbar onSubmit={this.handleSubmit} />
         <ImageGallery value={textSearch} />
+        {/* <ToastContainer /> */}
       </div>
     );
   }

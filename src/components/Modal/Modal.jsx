@@ -30,13 +30,9 @@ export class Modal extends Component {
   };
 
   render() {
-    const { largeImageURL, tags } = this.props;
     return createPortal(
-      <div className="overlay" onClick={this.handleBackdropClick}>
-        <div className="modal">
-          <img src={largeImageURL} alt={tags} />
-          <p>{tags}</p>
-        </div>
+      <div onClick={this.handleBackdropClick}>
+        <div>{this.props.children}</div>
       </div>,
       modalRoot
     );
@@ -44,8 +40,6 @@ export class Modal extends Component {
 }
 
 Modal.propTypes = {
-  largeImageURL: PropTypes.string.isRequired,
-  tags: PropTypes.string.isRequired,
-
-  onModalClose: PropTypes.func,
+  Children: PropTypes.node,
+  onModalClose: PropTypes.func.isRequired,
 };

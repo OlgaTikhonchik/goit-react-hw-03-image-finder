@@ -4,19 +4,19 @@ export const ImageGalleryItem = ({ item, onImageClick }) => {
   const { largeImageURL, tags, webformatURL } = item;
   return (
     <li
-      onClick={e => {
-        e.preventDefault();
-        onImageClick({ img: largeImageURL, alt: tags });
-      }}
+    // onClick={e => {
+    //   e.preventDefault();
+    //   onImageClick({ largeImageURL, tags });
+    // }}
     >
-      {/* <img
+      <img
         onClick={() => onImageClick({ img: largeImageURL, alt: tags })}
         src={webformatURL}
         alt={tags}
-      /> */}
-      <div>
+      />
+      {/* <div>
         <img src={webformatURL} alt={tags} loading="lazy" />
-      </div>
+      </div> */}
     </li>
   );
 };

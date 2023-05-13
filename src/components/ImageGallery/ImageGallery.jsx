@@ -31,25 +31,36 @@ export class ImageGallery extends Component {
     const nextValue = this.props.value;
 
     if (prevValue !== nextValue || prevState.page !== this.state.page) {
-      this.setState({ status: Status.PENDING });
+      getImage(nextValue, this.state.page)
+        .then(images => {
+          this.setState(prevState => ({
+            images:
+              this.state.page === 1
+                ? images.hits
+                : [...prevState.images, ...images.hits],
+            status: Status.RESOLVED,
+            totalPages: Math.floor(images.totalHits / 12),
+          }));
+        })
+        .catch(error => this.setState({ error, status: Status.REJECTED }));
     }
 
     if (this.state.error) {
       this.setState({ error: null });
     }
 
-    getImage(nextValue, this.state.page)
-      .then(images => {
-        this.setState(prevState => ({
-          images:
-            this.state.page === 1
-              ? images.hits
-              : [...prevState.images, ...images.hits],
-          status: Status.RESOLVED,
-          totalPages: Math.floor(images.totalHits / 12),
-        }));
-      })
-      .catch(error => this.setState({ error, status: Status.REJECTED }));
+    //   getImage(nextValue, this.state.page)
+    //     .then(images => {
+    //       this.setState(prevState => ({
+    //         images:
+    //           this.state.page === 1
+    //             ? images.hits
+    //             : [...prevState.images, ...images.hits],
+    //         status: Status.RESOLVED,
+    //         totalPages: Math.floor(images.totalHits / 12),
+    //       }));
+    //     })
+    //     .catch(error => this.setState({ error, status: Status.REJECTED }));
   }
 
   handleLoadMore = () => {
@@ -65,7 +76,8 @@ export class ImageGallery extends Component {
   };
 
   render() {
-    const { images, error, status, page, totalPages, isShowModal } = this.state;
+    const { images, error, status, page, totalPages, isShowModal, modalData } =
+      this.state;
     if (status === 'idle') {
       return <div>Let`s find images together!</div>;
     }
@@ -101,7 +113,9 @@ export class ImageGallery extends Component {
           {images.length > 0 && status !== 'pending' && page <= totalPages && (
             <Button onClick={this.handleLoadMore}>Load More</Button>
           )}
-          {isShowModal && <Modal onModalClose={this.handleModalClose} />}
+          {isShowModal && (
+            <Modal modalData={modalData} onModalClose={this.handleModalClose} />
+          )}
         </>
       );
     }

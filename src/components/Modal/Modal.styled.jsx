@@ -21,10 +21,10 @@ export const ModalCard = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 65vw;
-  height: 650px;
+  // width: 65vw;
+  // height: 650px;
 
-  background-color: #fffbe6;
+  // background-color: #fffbe6;
 
   border-radius: 3px;
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),

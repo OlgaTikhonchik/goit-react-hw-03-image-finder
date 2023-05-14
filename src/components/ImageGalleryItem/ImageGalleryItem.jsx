@@ -7,7 +7,7 @@ export const ImageGalleryItem = ({ item, onImageClick }) => {
   return (
     <GalleryItem>
       <GalleryImg
-        onClick={() => onImageClick({ img: largeImageURL, alt: tags })}
+        onClick={() => onImageClick({ largeImageURL, tags })}
         src={webformatURL}
         alt={tags}
       />

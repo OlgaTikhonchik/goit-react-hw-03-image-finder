@@ -30,3 +30,30 @@ export const ModalCard = styled.div`
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 `;
+
+export const ModalPicture = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+`;
+export const ModalDescr = styled.p`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  color: '#356859';
+
+  font-size: 22px;
+  background-color: rgba(185, 228, 201, 0.5);
+  box-shadow: 0px -2px 4px 1px rgba(0, 0, 0, 0.2),
+    0px -4px 5px 0px rgba(0, 0, 0, 0.14), 0px -1px 10px 0px rgba(0, 0, 0, 0.12);
+
+  backdrop-filter: blur(5.5px);
+`;

@@ -27,11 +27,23 @@ export class ImageGallery extends Component {
     modalData: { img: '', tags: '' },
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.value !== nextProps.value) {
+      return { page: 1, value: nextProps.value };
+    }
+    return null;
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const prevValue = prevProps.value;
     const nextValue = this.props.value;
 
     if (prevValue !== nextValue || prevState.page !== this.state.page) {
+      this.setState({ status: Status.PENDING });
+
+      if (this.state.error) {
+        this.setState({ error: null });
+      }
       getImage(nextValue, this.state.page)
         .then(images => {
           this.setState(prevState => ({
@@ -44,10 +56,6 @@ export class ImageGallery extends Component {
           }));
         })
         .catch(error => this.setState({ error, status: Status.REJECTED }));
-    }
-
-    if (this.state.error) {
-      this.setState({ error: null });
     }
   }
 
